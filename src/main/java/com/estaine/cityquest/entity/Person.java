@@ -1,9 +1,6 @@
 package com.estaine.cityquest.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Estaine on 11.04.2016.
@@ -11,6 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Person {
     private int personId;
+    private Team team;
     private String firstName;
     private String lastName;
     private String passwordHash;
@@ -25,6 +23,16 @@ public class Person {
 
     public void setPersonId(int personId) {
         this.personId = personId;
+    }
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "team_id", nullable = false)
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     @Basic

@@ -1,10 +1,10 @@
 package com.estaine.cityquest.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.estaine.cityquest.entity.enums.SubtaskOrder;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * Created by Estaine on 11.04.2016.
@@ -14,8 +14,9 @@ public class Task {
     private int taskId;
     private String name;
     private String description;
-    private byte subtaskOrder;
+    private SubtaskOrder subtaskOrder;
     private Timestamp deadline;
+    private Set<Subtask> subtasks;
 
     @Id
     @Column(name = "task_id")
@@ -47,13 +48,13 @@ public class Task {
         this.description = description;
     }
 
-    @Basic
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "subtask_order")
-    public byte getSubtaskOrder() {
+    public SubtaskOrder getSubtaskOrder() {
         return subtaskOrder;
     }
 
-    public void setSubtaskOrder(byte subtaskOrder) {
+    public void setSubtaskOrder(SubtaskOrder subtaskOrder) {
         this.subtaskOrder = subtaskOrder;
     }
 
@@ -65,6 +66,15 @@ public class Task {
 
     public void setDeadline(Timestamp deadline) {
         this.deadline = deadline;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+    public Set<Subtask> getSubtasks() {
+        return subtasks;
+    }
+
+    public void setSubtasks(Set<Subtask> subtasks) {
+        this.subtasks = subtasks;
     }
 
     @Override
@@ -88,7 +98,7 @@ public class Task {
         int result = taskId;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (int) subtaskOrder;
+        result = 31 * result + subtaskOrder.ordinal();
         result = 31 * result + (deadline != null ? deadline.hashCode() : 0);
         return result;
     }

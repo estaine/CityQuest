@@ -7,9 +7,11 @@ import java.sql.Timestamp;
  * Created by Estaine on 11.04.2016.
  */
 @Entity
-@Table(name = "team_subtask", schema = "", catalog = "cityquest")
-public class TeamSubtask {
+@Table(name = "mark", schema = "", catalog = "cityquest")
+public class Mark {
     private int teamSubtaskId;
+    private Team team;
+    private Subtask subtask;
     private Timestamp start;
     private Timestamp finish;
     private Integer attemptsUsed;
@@ -23,6 +25,26 @@ public class TeamSubtask {
 
     public void setTeamSubtaskId(int teamSubtaskId) {
         this.teamSubtaskId = teamSubtaskId;
+    }
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "team_id", nullable = false)
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "subtask_id", nullable = false)
+    public Subtask getSubtask() {
+        return subtask;
+    }
+
+    public void setSubtask(Subtask subtask) {
+        this.subtask = subtask;
     }
 
     @Basic
@@ -70,7 +92,7 @@ public class TeamSubtask {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TeamSubtask that = (TeamSubtask) o;
+        Mark that = (Mark) o;
 
         if (teamSubtaskId != that.teamSubtaskId) return false;
         if (start != null ? !start.equals(that.start) : that.start != null) return false;

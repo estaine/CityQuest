@@ -1,9 +1,7 @@
 package com.estaine.cityquest.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Estaine on 11.04.2016.
@@ -12,6 +10,7 @@ import javax.persistence.Id;
 public class Team {
     private int teamId;
     private String name;
+    private Set<Subtask> subtasks;
 
     @Id
     @Column(name = "team_id")
@@ -31,6 +30,21 @@ public class Team {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "mark",
+            joinColumns = {
+                    @JoinColumn(name = "team_id", nullable = false, updatable = false) },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "subtask_id",
+                            nullable = false, updatable = false) })
+    public Set<Subtask> getSubtasks() {
+        return subtasks;
+    }
+
+    public void setSubtasks(Set<Subtask> subtasks) {
+        this.subtasks = subtasks;
     }
 
     @Override

@@ -5,10 +5,9 @@
         <class>com.estaine.cityquest.entity.Image</class>
         <class>com.estaine.cityquest.entity.Person</class>
         <class>com.estaine.cityquest.entity.Subtask</class>
-        <class>com.estaine.cityquest.entity.SubtaskImage</class>
         <class>com.estaine.cityquest.entity.Task</class>
         <class>com.estaine.cityquest.entity.Team</class>
-        <class>com.estaine.cityquest.entity.TeamSubtask</class>
+        <class>com.estaine.cityquest.entity.Mark</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/cityquest"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
