@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by Estaine on 04.05.2016.
  */
-@Repository
 public interface TeamDAO extends GenericDAO<Team> {
 }

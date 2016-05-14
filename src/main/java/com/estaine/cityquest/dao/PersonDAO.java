@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 /**
  * Created by Estaine on 15.04.2016.
  */
-@Repository
 public interface PersonDAO extends GenericDAO<Person> {
 }
